@@ -12,7 +12,7 @@ from google import genai
 
 # Setup your AI Brain
 # Replace 'YOUR_API_KEY_HERE' with your actual key
-client = genai.Client(api_key="AIzaSyDg_vjhUkL9hS55mF89ANurHDg3nq9xB_k")
+client = genai.Client(api_key="###")
 
 # --- Database Management ---
 def init_db():
