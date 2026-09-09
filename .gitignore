@@ -7,3 +7,6 @@ __pycache__/
 
 # Ignore the SQLite local database
 assistant_memory.db
+
+# Ignore environment variables
+.env
