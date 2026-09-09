@@ -144,6 +144,14 @@ def stream_ai_response(prompt):
             if "503" in error_message and attempt < max_retries - 1:
                 safe_update_chat(f"⚙️ System: Servers are busy. Retrying... (Attempt {attempt + 2}/{max_retries})")
                 time.sleep(2) # Wait 2 seconds before trying again
+            # Handle 429 Quota Exhausted
+            elif "429" in error_message:
+                # Extract the wait time if the API provides it, otherwise default to 60 seconds
+                wait_time_match = re.search(r'retry in (\d+)s', error_message)
+                wait_seconds = wait_time_match.group(1) if wait_time_match else "60"
+                
+                safe_update_chat(f"⚠️ System: Free tier API limit reached! Please wait {wait_seconds} seconds before sending another command.")
+                break  
             else:
                 safe_update_chat(f"\n⚠️ [AI Error]: {e}")
                 break # Break on any other error (like a bad API key) or if out of retries
